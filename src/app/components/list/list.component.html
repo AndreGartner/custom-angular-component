@@ -1,0 +1,107 @@
+<!-- * side list -->
+<aside class="side-list">
+
+    <!-- * side list toolbar -->
+    <div class="side-list-toolbar">
+
+        <span class="title">Contacts</span>
+
+        <button class="btn" (click)="onAddItem()">Add</button>
+
+    </div>
+
+    <!-- * side list items-->
+    <div class="side-list-items">
+
+        <div 
+            class="side-list-item"
+            @listItemAnimation
+            *ngFor="let contact of contactList; trackBy: contact?.id"
+            [ngClass]="{ 'side-list-item-selected': contact.id == selectedContact?.id }"
+            (click)="onSelectItem(contact)"
+        >
+
+            <div class="side-list-item-avatar">
+
+                <img [src]="contact.avatarUrl" loading="lazy" alt="profile picture" />
+
+            </div>
+
+            <div class="side-list-item-info">
+
+                <p class="side-list-item-info-name">{{ contact.name }}</p>
+                <p class="side-list-item-info-email">{{ contact.email }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</aside>
+
+<!-- * content wrapper -->
+<section class="side-list-content">
+
+    <!-- * content -->
+    <div 
+        class="side-list-content-data"
+        *ngIf="!!selectedContact"
+        @sideContentAnimation 
+    >
+
+        <div class="side-list-content-data-inner">
+
+            <div class="side-list-content-data-overview">
+
+                <div class="side-list-content-data-overview-info">
+
+                    <h3>{{ selectedContact.name }}</h3>
+                    <span>{{ selectedContact.email }}</span>
+
+                </div>
+
+                <div class="side-list-content-data-overview-avatar">
+
+                    <img [src]="selectedContact.avatarUrl" loading="lazy" alt="profile picture" />
+
+                </div>
+
+            </div>
+
+            <div class="side-list-content-data-separator">
+
+                <h4>Overview</h4>
+
+                <div>
+
+                    <button 
+                        class="btn danger outline" 
+                        (click)="onDeleteItem(selectedContact)"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </div>
+
+            <p>Lorem</p>
+
+        </div>
+        
+    </div>
+
+    <!-- * empty selection -->
+    <div class="side-list-content-empty" *ngIf="!selectedContact">
+
+        <div>
+
+            <img src="https://img.icons8.com/ios/100/000000/nui2.png" alt="empty-selection" loading="lazy" />
+            <p>Select an item from the list.</p>
+
+        </div>
+
+    </div>
+
+</section>
